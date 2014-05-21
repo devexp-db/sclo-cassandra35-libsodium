@@ -1,6 +1,6 @@
 Name:           libsodium
-Version:        0.4.5
-Release:        3%{?dist}
+Version:        0.5.0
+Release:        1%{?dist}
 Summary:        A fork of networking and cryptography library with compatible APIs
 License:        ISC
 URL:            https://github.com/jedisct1/libsodium
@@ -32,8 +32,8 @@ sed -i 's|_pkg_min_version=0.25|_pkg_min_version=0.23|g' configure
 make %{?_smp_mflags}
 
 %install
-make install INSTALL="install -p" DESTDIR=%{buildroot}
-find %{buildroot} -name '*.la' -delete
+%make_install
+find %{buildroot} -name '*.la' -delete -print
 
 %check
 make check
@@ -54,6 +54,9 @@ make check
 %{_libdir}/pkgconfig/libsodium.pc
 
 %changelog
+* Fri May 16 2014 Christopher Meng <rpm@cicku.me> - 0.5.0-1
+- Update to 0.5.0
+
 * Mon Dec 09 2013 Christopher Meng <rpm@cicku.me> - 0.4.5-3
 - Disable silent build rules.
 - Preserve the timestamp.
@@ -63,7 +66,7 @@ make check
 - Add support for EPEL6.
 
 * Wed Nov 20 2013 Christopher Meng <rpm@cicku.me> - 0.4.5-1
-- New version.
+- Update to 0.4.5
 
 * Wed Jul 10 2013 Christopher Meng <rpm@cicku.me> - 0.4.2-2
 - Drop useless files.
