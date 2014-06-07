@@ -1,6 +1,6 @@
 Name:           libsodium
 Version:        0.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A fork of networking and cryptography library with compatible APIs
 License:        ISC
 URL:            https://github.com/jedisct1/libsodium
@@ -54,6 +54,9 @@ make check
 %{_libdir}/pkgconfig/libsodium.pc
 
 %changelog
+* Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.5.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
+
 * Fri May 16 2014 Christopher Meng <rpm@cicku.me> - 0.5.0-1
 - Update to 0.5.0
 
