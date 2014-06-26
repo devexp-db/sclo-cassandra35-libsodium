@@ -23,7 +23,7 @@ developing applications that use %{name} libraries.
 %prep
 %setup -q
 # EPEL6 hack.
-%if 0%{?rhel} == 6
+%if 0%{?el} == 6
 sed -i 's|_pkg_min_version=0.25|_pkg_min_version=0.23|g' configure
 %endif
 
@@ -43,10 +43,11 @@ make check
 %postun -p /sbin/ldconfig
 
 %files
-%doc AUTHORS ChangeLog LICENSE README.markdown THANKS
+%doc LICENSE
 %{_libdir}/libsodium.so.*
 
 %files devel
+%doc AUTHORS ChangeLog README.markdown THANKS
 %doc test/default/*.{c,h}
 %{_includedir}/sodium.h
 %{_includedir}/sodium/
