@@ -1,16 +1,23 @@
 Name:           libsodium
-Version:        0.5.0
-Release:        2%{?dist}
-Summary:        A fork of networking and cryptography library with compatible APIs
+Version:        0.6.0
+Release:        1%{?dist}
+Summary:        The Sodium crypto library
 License:        ISC
-URL:            https://github.com/jedisct1/libsodium
+URL:            http://libsodium.org/
 Source0:        http://download.libsodium.org/libsodium/releases/%{name}-%{version}.tar.gz
 
 %description
-Sodium is a portable, cross-compilable, installable, packageable library 
-forked from NaCl(networking and cryptography library), with a compatible API. 
-Its goal is to provide all of the core operations needed to build higher-level
-cryptographic tools.
+Sodium is a new, easy-to-use software library for encryption, decryption, 
+signatures, password hashing and more. It is a portable, cross-compilable, 
+installable, packageable fork of NaCl, with a compatible API, and an extended 
+API to improve usability even further. Its goal is to provide all of the core 
+operations needed to build higher-level cryptographic tools. The design 
+choices emphasize security, and "magic constants" have clear rationales.
+
+The same cannot be said of NIST curves, where the specific origins of certain 
+constants are not described by the standards. And despite the emphasis on 
+higher security, primitives are faster across-the-board than most 
+implementations of the NIST standards.
 
 %package        devel
 Summary:        Development files for %{name}
@@ -29,7 +36,7 @@ sed -i 's|_pkg_min_version=0.25|_pkg_min_version=0.23|g' configure
 
 %build
 %configure --disable-static --disable-silent-rules
-make %{?_smp_mflags}
+%make_build
 
 %install
 %make_install
@@ -55,6 +62,9 @@ make check
 %{_libdir}/pkgconfig/libsodium.pc
 
 %changelog
+* Thu Jul 03 2014 Christopher Meng <rpm@cicku.me> - 0.6.0-1
+- Update to 0.6.0
+
 * Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.5.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
 
