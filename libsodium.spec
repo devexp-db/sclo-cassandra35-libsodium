@@ -1,5 +1,5 @@
 Name:           libsodium
-Version:        0.6.0
+Version:        0.6.1
 Release:        1%{?dist}
 Summary:        The Sodium crypto library
 License:        ISC
@@ -62,6 +62,9 @@ make check
 %{_libdir}/pkgconfig/libsodium.pc
 
 %changelog
+* Thu Jul 17 2014 Christopher Meng <rpm@cicku.me> - 0.6.1-1
+- Update to 0.6.1
+
 * Thu Jul 03 2014 Christopher Meng <rpm@cicku.me> - 0.6.0-1
 - Update to 0.6.0
 
