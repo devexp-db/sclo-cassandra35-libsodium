@@ -29,10 +29,6 @@ developing applications that use %{name} libraries.
 
 %prep
 %setup -q
-# EPEL6 hack.
-%if 0%{?el} == 6
-sed -i 's|_pkg_min_version=0.25|_pkg_min_version=0.23|g' configure
-%endif
 
 %build
 %configure --disable-static --disable-silent-rules
