@@ -1,6 +1,6 @@
 Name:           libsodium
-Version:        1.0.2
-Release:        2%{?dist}
+Version:        1.0.3
+Release:        1%{?dist}
 Summary:        The Sodium crypto library
 License:        ISC
 URL:            http://libsodium.org/
@@ -52,13 +52,17 @@ make check
 
 %files devel
 %doc AUTHORS ChangeLog README.markdown THANKS
-%doc test/default/*.{c,h}
+%doc test/default/*.{c,exp,h}
+%doc test/quirks/quirks.h
 %{_includedir}/sodium.h
 %{_includedir}/sodium/
 %{_libdir}/libsodium.so
 %{_libdir}/pkgconfig/libsodium.pc
 
 %changelog
+* Mon Jul 13 2015 Christopher Meng <rpm@cicku.me> - 1.0.3-1
+- Update to 1.0.3
+
 * Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
 
