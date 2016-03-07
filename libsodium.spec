@@ -1,6 +1,16 @@
+# Fedora spec file for libsodium
+#
+# License: MIT
+# http://opensource.org/licenses/MIT
+#
+# Please preserve changelog entries
+#
+%global libname libsodium
+%global soname  18
+
 Name:           libsodium
-Version:        1.0.5
-Release:        2%{?dist}
+Version:        1.0.8
+Release:        1%{?dist}
 Summary:        The Sodium crypto library
 License:        ISC
 URL:            http://libsodium.org/
@@ -19,6 +29,7 @@ constants are not described by the standards. And despite the emphasis on
 higher security, primitives are faster across-the-board than most 
 implementations of the NIST standards.
 
+
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
@@ -27,28 +38,34 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 This package contains libraries and header files for
 developing applications that use %{name} libraries.
 
+
 %prep
 %setup -q
+
 
 %build
 %configure --disable-static --disable-silent-rules
 %make_build
 
+
 %install
 %make_install
 
-find %{buildroot} -name '*.la' -delete -print
+rm -f %{buildroot}%{_libdir}/%{libname}.la
+
 
 %check
 make check
+
 
 %post -p /sbin/ldconfig
 
 %postun -p /sbin/ldconfig
 
+
 %files
-%doc LICENSE
-%{_libdir}/libsodium.so.*
+%license LICENSE
+%{_libdir}/%{libname}.so.%{soname}*
 
 %files devel
 %doc AUTHORS ChangeLog README.markdown THANKS
@@ -56,10 +73,16 @@ make check
 %doc test/quirks/quirks.h
 %{_includedir}/sodium.h
 %{_includedir}/sodium/
-%{_libdir}/libsodium.so
-%{_libdir}/pkgconfig/libsodium.pc
+%{_libdir}/%{libname}.so
+%{_libdir}/pkgconfig/%{libname}.pc
+
 
 %changelog
+* Mon Mar  7 2016 Remi Collet <remi@fedoraproject.org> - 1.0.8-1
+- update to 1.0.8
+- soname bump to 18
+- fix license management
+
 * Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
 
