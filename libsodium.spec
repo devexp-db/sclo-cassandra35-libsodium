@@ -9,7 +9,7 @@
 %global soname  18
 
 Name:           libsodium
-Version:        1.0.9
+Version:        1.0.10
 Release:        1%{?dist}
 Summary:        The Sodium crypto library
 License:        ISC
@@ -82,6 +82,9 @@ make check
 
 
 %changelog
+* Tue Apr  5 2016 Remi Collet <remi@fedoraproject.org> - 1.0.10-1
+- update to 1.0.10
+
 * Sat Apr  2 2016 Remi Collet <remi@fedoraproject.org> - 1.0.9-1
 - update to 1.0.9
 
