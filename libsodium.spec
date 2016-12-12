@@ -10,7 +10,7 @@
 
 Name:           libsodium
 Version:        1.0.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The Sodium crypto library
 License:        ISC
 URL:            http://libsodium.org/
@@ -38,6 +38,14 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 This package contains libraries and header files for
 developing applications that use %{name} libraries.
 
+%package        static
+Summary:        Static library for %{name}
+Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
+
+%description    static
+This package contains the static library for statically
+linking applications to use %{name}.
+
 
 %prep
 %setup -q
@@ -45,7 +53,6 @@ developing applications that use %{name} libraries.
 
 %build
 %configure \
-  --disable-static \
   --disable-silent-rules \
   --disable-opt
 
@@ -80,8 +87,14 @@ make check
 %{_libdir}/%{libname}.so
 %{_libdir}/pkgconfig/%{libname}.pc
 
+%files static
+%license LICENSE
+%{_libdir}/libsodium.a
 
 %changelog
+* Mon Dec 12 2016 Neal Gompa <ngompa13@gmail.com> - 1.0.11-2
+- Add static library subpackage
+
 * Mon Aug  1 2016 Remi Collet <remi@fedoraproject.org> - 1.0.11-1
 - update to 1.0.11
 
