@@ -88,7 +88,6 @@ make check
 %{_libdir}/pkgconfig/%{libname}.pc
 
 %files static
-%license LICENSE
 %{_libdir}/libsodium.a
 
 %changelog
