@@ -9,8 +9,8 @@
 %global soname  18
 
 Name:           libsodium
-Version:        1.0.11
-Release:        3%{?dist}
+Version:        1.0.12
+Release:        1%{?dist}
 Summary:        The Sodium crypto library
 License:        ISC
 URL:            http://libsodium.org/
@@ -91,6 +91,9 @@ make check
 %{_libdir}/libsodium.a
 
 %changelog
+* Mon Mar 13 2017 Remi Collet <remi@fedoraproject.org> - 1.0.12-1
+- update to 1.0.12
+
 * Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.11-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
 
