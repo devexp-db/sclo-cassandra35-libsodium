@@ -9,12 +9,16 @@
 %global soname  18
 
 Name:           libsodium
-Version:        1.0.13
-Release:        3%{?dist}
+Version:        1.0.14
+Release:        1%{?dist}
 Summary:        The Sodium crypto library
 License:        ISC
 URL:            http://libsodium.org/
 Source0:        http://download.libsodium.org/libsodium/releases/%{name}-%{version}.tar.gz
+
+# manage update from 3rd party repository
+Obsoletes:      %{libname}-last   <= %{version}
+
 
 %description
 Sodium is a new, easy-to-use software library for encryption, decryption, 
@@ -33,6 +37,7 @@ implementations of the NIST standards.
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Obsoletes:      %{libname}-last-devel <= %{version}
 
 %description    devel
 This package contains libraries and header files for
@@ -41,6 +46,7 @@ developing applications that use %{name} libraries.
 %package        static
 Summary:        Static library for %{name}
 Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
+Obsoletes:      %{libname}-last-static <= %{version}
 
 %description    static
 This package contains the static library for statically
@@ -90,7 +96,12 @@ make check
 %files static
 %{_libdir}/libsodium.a
 
+
 %changelog
+* Fri Sep 22 2017 Remi Collet <remi@remirepo.net> - 1.0.14-1
+- update to 1.0.14
+- manage update from libsodium-last (3rd party repository)
+
 * Thu Aug 03 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.13-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
 
