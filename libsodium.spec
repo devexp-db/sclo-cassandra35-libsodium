@@ -6,10 +6,10 @@
 # Please preserve changelog entries
 #
 %global libname libsodium
-%global soname  18
+%global soname  23
 
 Name:           libsodium
-Version:        1.0.14
+Version:        1.0.15
 Release:        1%{?dist}
 Summary:        The Sodium crypto library
 License:        ISC
@@ -17,7 +17,7 @@ URL:            http://libsodium.org/
 Source0:        http://download.libsodium.org/libsodium/releases/%{name}-%{version}.tar.gz
 
 # manage update from 3rd party repository
-Obsoletes:      %{libname}-last   <= %{version}
+Obsoletes:      %{libname}%{soname} <= %{version}
 
 
 %description
@@ -37,7 +37,7 @@ implementations of the NIST standards.
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Obsoletes:      %{libname}-last-devel <= %{version}
+Obsoletes:      %{libname}%{soname}-devel <= %{version}
 
 %description    devel
 This package contains libraries and header files for
@@ -46,7 +46,7 @@ developing applications that use %{name} libraries.
 %package        static
 Summary:        Static library for %{name}
 Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
-Obsoletes:      %{libname}-last-static <= %{version}
+Obsoletes:      %{libname}%{soname}-static <= %{version}
 
 %description    static
 This package contains the static library for statically
@@ -98,6 +98,11 @@ make check
 
 
 %changelog
+* Sun Oct  1 2017 Remi Collet <remi@remirepo.net> - 1.0.15-1
+- update to 1.0.15
+- soname bump to 23
+- manage update from libsodium23 (3rd party repository)
+
 * Fri Sep 22 2017 Remi Collet <remi@remirepo.net> - 1.0.14-1
 - update to 1.0.14
 - manage update from libsodium-last (3rd party repository)
