@@ -8,17 +8,22 @@
 %global libname libsodium
 %global soname  23
 
-Name:           libsodium
+%{?scl:%scl_package libsodium}
+%{!?scl:%global pkg_name %{name}}
+
+Name:           %{?scl_prefix}libsodium
 Version:        1.0.15
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The Sodium crypto library
 License:        ISC
 URL:            http://libsodium.org/
-Source0:        http://download.libsodium.org/libsodium/releases/%{name}-%{version}.tar.gz
+Source0:        http://download.libsodium.org/libsodium/releases/%{libname}-%{version}.tar.gz
 
 # manage update from 3rd party repository
-Obsoletes:      %{libname}%{soname} <= %{version}
+Obsoletes:      %{?scl_prefix}%{libname}%{soname} <= %{version}
 
+%{?scl:Requires: %scl_runtime}
+%{?scl:BuildRequires: %scl-scldevel}
 
 %description
 Sodium is a new, easy-to-use software library for encryption, decryption, 
@@ -37,7 +42,7 @@ implementations of the NIST standards.
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Obsoletes:      %{libname}%{soname}-devel <= %{version}
+Obsoletes:      %{?scl_prefix}%{libname}%{soname}-devel <= %{version}
 
 %description    devel
 This package contains libraries and header files for
@@ -46,7 +51,7 @@ developing applications that use %{name} libraries.
 %package        static
 Summary:        Static library for %{name}
 Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
-Obsoletes:      %{libname}%{soname}-static <= %{version}
+Obsoletes:      %{?scl_prefix}%{libname}%{soname}-static <= %{version}
 
 %description    static
 This package contains the static library for statically
@@ -54,25 +59,31 @@ linking applications to use %{name}.
 
 
 %prep
-%setup -q
+%setup -q -n %{libname}-%{version}
 
 
 %build
+%{?scl:scl enable %{scl} - << "EOF"}
 %configure \
   --disable-silent-rules \
   --disable-opt
 
 %make_build
+%{?scl:EOF}
 
 
 %install
+%{?scl:scl enable %{scl} - << "EOF"}
 %make_install
 
 rm -f %{buildroot}%{_libdir}/%{libname}.la
+%{?scl:EOF}
 
 
 %check
+%{?scl:scl enable %{scl} - << "EOF"}
 make check
+%{?scl:EOF}
 
 
 %post -p /sbin/ldconfig
@@ -98,6 +109,9 @@ make check
 
 
 %changelog
+* Tue Oct 03 2017 Augusto Mecking Caringi <acaringi@redhat.com> - 1.0.15-2
+- scl conversion
+
 * Sun Oct  1 2017 Remi Collet <remi@remirepo.net> - 1.0.15-1
 - update to 1.0.15
 - soname bump to 23
